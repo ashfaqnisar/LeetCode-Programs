@@ -1,3 +1,4 @@
+// For testing the sample testcases create a node class
 class ListNode {
     constructor(val, next) {
         this.val = (val === undefined ? 0 : val)
@@ -5,12 +6,15 @@ class ListNode {
     }
 }
 
+// For creating the linked list using this class.
 class LinkedList {
     constructor() {
         this.head = null;
     }
 }
 
+
+//Declaring all the sample testcases.
 // const list1 = new ListNode(2, new ListNode(4, new ListNode(3, null)))
 // const list2 = new ListNode(5, new ListNode(6, new ListNode(4, new ListNode(2, null))))
 const list1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, null)))))))
@@ -37,9 +41,11 @@ var addTwoNumbers = function (l1, l2) {
     // console.log(l1, l2)
     let list = new LinkedList(), current = null, carry = 0
 
-    while (!(l1 == null && l2 == null)) {
+    //LoLooping through the both the lists until the carry is zero.
+    while (!(l1 == null && l2 == null && carry === 0)) {
         let l1Value = l1 ? l1.val : 0, l2Value = l2 ? l2.val : 0;
 
+        // Process the value and handling the carry.
         let value = (l1Value + l2Value + carry)
         carry = Number(value.toString().substring(0, value.toString().length - 1));
         let number = value % 10
@@ -47,6 +53,7 @@ var addTwoNumbers = function (l1, l2) {
 
         const node = new ListNode(number)
 
+        // Adding the node to the list.
         if (list.head == null) {
             list.head = node
         } else {
@@ -56,10 +63,10 @@ var addTwoNumbers = function (l1, l2) {
             }
             current.next = node
         }
-        console.log("list: ", list.head)
+        // console.log("list: ", list.head)
 
 
-        console.log("\n--------\n")
+        // console.log("\n--------\n")
 
         // console.log("currentNode: ", currentNode)
 
@@ -70,6 +77,7 @@ var addTwoNumbers = function (l1, l2) {
         // Node(2, Node(3 ,null)) prev = node(2, Node(0 , null), current = node(3, null), next = node(0, null)
         // Node(2, Node(3 ,Node(4, null))) prev = node(2, null), current = node(3, null), next = node(0, null)
 
+        // Updating both the nodes, if they have next or using the same one.
         l1 = l1 ? l1.next : l1, l2 = l2 ? l2.next : l2
     }
     return list.head
