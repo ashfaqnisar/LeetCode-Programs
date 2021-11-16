@@ -5,8 +5,16 @@ class ListNode {
     }
 }
 
-const list1 = new ListNode(2, new ListNode(4, new ListNode(3, null)))
-const list2 = new ListNode(5, new ListNode(6, new ListNode(4, null)))
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+}
+
+// const list1 = new ListNode(2, new ListNode(4, new ListNode(3, null)))
+// const list2 = new ListNode(5, new ListNode(6, new ListNode(4, new ListNode(2, null))))
+const list1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, null)))))))
+const list2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, null))))
 
 
 /*
@@ -26,22 +34,49 @@ const list2 = new ListNode(5, new ListNode(6, new ListNode(4, null)))
 // }
 
 var addTwoNumbers = function (l1, l2) {
-    console.log(l1, l2)
-    let carry = 0, resultList = new ListNode(0, null);
-    while (l1 != null && l2 != null) {
-        let l1Value = l1.val, l2Value = l2.val
-        resultList.val = l1Value + l2Value
-        resultList.next = null
+    // console.log(l1, l2)
+    let list = new LinkedList(), current = null, carry = 0
+
+    while (!(l1 == null && l2 == null)) {
+        let l1Value = l1 ? l1.val : 0, l2Value = l2 ? l2.val : 0;
+
+        let value = (l1Value + l2Value + carry)
+        carry = Number(value.toString().substring(0, value.toString().length - 1));
+        let number = value % 10
+        console.log("value: ", value, "Carry: ", carry, "Number: ", number)
+
+        const node = new ListNode(number)
+
+        if (list.head == null) {
+            list.head = node
+        } else {
+            current = list.head
+            while (current.next) {
+                current = current.next
+            }
+            current.next = node
+        }
+        console.log("list: ", list.head)
+
+
+        console.log("\n--------\n")
+
+        // console.log("currentNode: ", currentNode)
+
+
+        // 2 -> 3 -> 4
+        // Node(2, Node(3, Node(4, null)))
+        // Node(2, null),  prev = null, current = node(2,null), next = node(0, null)
+        // Node(2, Node(3 ,null)) prev = node(2, Node(0 , null), current = node(3, null), next = node(0, null)
+        // Node(2, Node(3 ,Node(4, null))) prev = node(2, null), current = node(3, null), next = node(0, null)
+
+        l1 = l1 ? l1.next : l1, l2 = l2 ? l2.next : l2
     }
-    return
-
-
-    // for (let node of l1){
-    //     console.log(node.val, " - ", node.next)
-    // }
-    // for (let node of l2)
-    //     console.log(node.val, " - ", node.next)
-
+    return list.head
 };
 
-addTwoNumbers(list1, list2)
+let current = addTwoNumbers(list1, list2)
+while (current) {
+    console.log(current.val)
+    current = current.next
+}
